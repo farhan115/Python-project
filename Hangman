@@ -1,3 +1,11 @@
+(The name of the game is "Hangman".It is a word guessing game
+where the player tries toguess a hidden word by suggesting letters
+one at a time. The game typically includes a visual representation of a
+hangman being built with each incorrect guess, hence the name "Hangman".)
+
+
+
+
 import random
 
 # Setup
