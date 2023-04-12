@@ -1,0 +1,113 @@
+import random
+
+# Setup
+hangman_pics = [
+    '''
+        +---+
+        |   |
+            |
+            |
+            |
+            |
+    =========''',
+    '''
+        +---+
+        |   |
+        O   |
+            |
+            |
+            |
+    =========''',
+    '''
+        +---+
+        |   |
+        O   |
+        |   |
+            |
+            |
+    =========''',
+    '''
+        +---+
+        |   |
+        O   |
+       /|   |
+            |
+            |
+    =========''',
+    '''
+        +---+
+        |   |
+        O   |
+       /|\\  |
+            |
+            |
+    =========''',
+    '''
+        +---+
+        |   |
+        O   |
+       /|\\  |
+       /    |
+            |
+    =========''',
+    '''
+        +---+
+        |   |
+        O   |
+       /|\\  |
+       / \\  |
+            |
+    ========='''
+]
+
+words = ["apple", "banana", "cherry", "durian", "elderberry", "fig", "grapefruit", "honeydew", "jackfruit", "kiwi", "lemon", "mango", "nectarine", "orange", "papaya", "quince", "raspberry", "strawberry", "tangerine", "watermelon"]
+
+word = random.choice(words).lower()
+hidden_word = ["_" for letter in word]
+guessed_letters = []
+incorrect_guesses = 0
+max_guesses = len(hangman_pics) - 1
+
+# Game loop
+while True:
+    # Print the hangman picture and the hidden word
+    print(hangman_pics[incorrect_guesses])
+    print(" ".join(hidden_word))
+
+    # Get a guess from the user
+    guess = input("Guess a letter: ").lower()
+
+    # Check if the guess is valid
+    if len(guess) != 1 or not guess.isalpha():
+        print("Invalid guess. Please enter a single letter.")
+        continue
+
+    # Check if the guess has already been made
+    if guess in guessed_letters:
+        print("You already guessed that letter.")
+        continue
+
+    # Add the guess to the list of guessed letters
+    guessed_letters.append(guess)
+
+    # Check if the guess is in the word
+    if guess in word:
+        # Update the hidden word
+        for i in range(len(word)):
+            if word[i] == guess:
+                hidden_word[i] = guess
+
+        print("Correct!")
+    else:
+        # Increment the number of incorrect guesses
+        incorrect_guesses += 1
+        print("Incorrect.")
+
+    # Check if the game is over
+    if "".join(hidden_word) == word:
+        print("Congratulations! You win!")
+        break
+    elif incorrect_guesses == max_guesses:
+        print(hangman_pics[incorrect_guesses])
+        print("Sorry, you lose. The word was '{}'.".format(word))
+        break
