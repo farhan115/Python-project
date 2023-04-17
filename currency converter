@@ -1,0 +1,11 @@
+from forex_python.converter import CurrencyRates
+
+# Create a CurrencyRates object
+c = CurrencyRates()
+
+# Convert from USD to EUR
+usd_amount = 100.0
+eur_amount = c.convert('USD', 'EUR', usd_amount)
+
+# Print the result
+print(f"{usd_amount} USD is equal to {eur_amount:.2f} EUR")
