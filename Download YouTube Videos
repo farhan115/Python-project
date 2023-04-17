@@ -1,0 +1,22 @@
+Downloading YouTube videos using Python can be done with the help of the pytube library. Here's an example code snippet that demonstrates how to download a YouTube video using pytube:
+
+python
+Copy code
+from pytube import YouTube
+
+# Paste the YouTube video URL here
+url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
+# Create a YouTube object and get the highest resolution stream
+yt = YouTube(url)
+stream = yt.streams.get_highest_resolution()
+
+# Download the video
+stream.download()
+In this example, we first import the YouTube class from the pytube library. We then paste the URL of the YouTube video that we want to download into the url variable.
+
+Next, we create a YouTube object using the url, and get the highest resolution stream available for the video using the get_highest_resolution method. This returns a Stream object that represents the video stream that we want to download.
+
+Finally, we call the download method of the Stream object to download the video to the current working directory.
+
+You can customize this example by changing the url variable to the URL of the YouTube video that you want to download, and modifying the resolution or format of the video stream that you want to download. pytube provides many other methods and properties that you can use to inspect and manipulate YouTube videos.
