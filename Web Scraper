@@ -1,0 +1,25 @@
+import requests
+from bs4 import BeautifulSoup
+
+# Make a request to the website
+url = "https://www.example.com"
+response = requests.get(url)
+
+# Parse the HTML content of the website
+soup = BeautifulSoup(response.content, 'html.parser')
+
+# Find all links on the page
+links = soup.find_all('a')
+
+# Print the URLs of the links
+for link in links:
+    print(link.get('href'))
+
+
+
+
+A web scraper is a software tool that automates the process of extracting data from websites. Web scrapers can be used to extract various types of data, such as text, images, links, and other structured or unstructured data.
+
+Web scraping involves retrieving data from a website by sending HTTP requests to the website's server and parsing the response to extract the desired data. The process can be automated using programming languages like Python, which provide libraries such as Requests, Beautiful Soup, and Scrapy to make it easier to send requests and extract data from web pages.
+
+Web scrapers can be used for a variety of purposes, such as monitoring competitor pricing, aggregating news articles, gathering research data, and more. However, web scraping can also be a controversial practice, as some website owners may consider it a violation of their terms of service or intellectual property rights. Therefore, it is important to check the terms of service and any applicable laws and regulations before scraping a website.
