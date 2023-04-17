@@ -1,0 +1,27 @@
+import random
+
+# Generate a random number between 1 and 100
+number = random.randint(1, 100)
+
+# Set the number of guesses allowed
+num_guesses = 5
+
+# Loop until the player runs out of guesses or guesses correctly
+for i in range(num_guesses):
+    # Get a guess from the player
+    guess = int(input("Guess a number between 1 and 100: "))
+    
+    # Check if the guess is correct
+    if guess == number:
+        print("Congratulations! You guessed the number in", i+1, "guesses!")
+        break
+    else:
+        # Give the player a hint
+        if guess < number:
+            print("The number is higher than your guess.")
+        else:
+            print("The number is lower than your guess.")
+    
+    # If the player runs out of guesses, reveal the number
+    if i == num_guesses-1:
+        print("Sorry, you ran out of guesses. The number was", number)
