@@ -1,0 +1,30 @@
+Here is a simple port scanner script written in Python using the built-in socket library:
+
+python
+Copy code
+import socket
+
+def scan_ports(host):
+    open_ports = []
+    for port in range(1, 65535):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(1)
+        result = sock.connect_ex((host, port))
+        if result == 0:
+            open_ports.append(port)
+        sock.close()
+    return open_ports
+
+host = "127.0.0.1"
+open_ports = scan_ports(host)
+
+print(f"Open ports on {host}: {open_ports}")
+This script attempts to open a TCP connection to each port on the host from port 1 to 65534. If the connection succeeds, the port is considered open.
+
+Please note:
+
+This script is very basic and does not handle many edge cases and potential errors.
+The timeout is set to 1 second, so this script can take a long time to run if it checks all 65534 ports. You might want to limit the range of ports it checks.
+This script only checks TCP ports. A more advanced script might also check UDP ports.
+Be aware of the legal and ethical issues involved in port scanning. You should only scan hosts that you have permission to scan.
+Many hosts will have protections in place to detect and block port scans, so this script might not always work on all hosts.
