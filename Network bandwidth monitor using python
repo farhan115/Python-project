@@ -1,1 +1,51 @@
+There are multiple ways to monitor network bandwidth using Python, but one straightforward approach uses the psutil library. Here is a basic example:
 
+python
+Copy code
+import psutil
+import time
+
+def print_network_usage():
+    # Get network io statistics
+    net_io = psutil.net_io_counters()
+    old_recv = net_io.bytes_recv
+    old_sent = net_io.bytes_sent
+
+    # Delay for a second and get network io statistics again
+    time.sleep(1)
+    net_io = psutil.net_io_counters()
+    curr_recv = net_io.bytes_recv
+    curr_sent = net_io.bytes_sent
+
+    # Compare and print the difference (this gives the amount of data sent and received in last second)
+    print(f"Download Speed: {convert_to_mbit(curr_recv - old_recv)} Mbit/s")
+    print(f"Upload Speed: {convert_to_mbit(curr_sent - old_sent)} Mbit/s")
+
+def convert_to_mbit(value):
+    return value/1024./1024.*8
+
+while True:
+    print_network_usage()
+This script will print the upload and download speed every second. The speed is calculated based on the difference in sent/received bytes between the two consecutive measurements.
+
+Please note:
+
+This measures the total data sent/received by all the applications and not by a specific application or process.
+
+It also doesn't differentiate between LAN and WAN data. If you want to do that, things will get more complicated and you'll likely need to use a packet sniffing library like scapy.
+
+This script may require root/administrator privileges to run, depending on your system's configuration.
+
+Install the psutil module before running the script. You can do it by using pip:
+
+Copy code
+pip install psutil
+or
+
+Copy code
+pip3 install psutil
+depending on your Python environment setup.
+
+This script runs indefinitely. You may want to build in a mechanism to stop it or limit its run duration according to your specific needs.
+
+The function convert_to_mbit converts the speed from bytes per second to Megabits per second (1 Byte = 8 bits, 1 KB = 1024 Bytes, 1 MB = 1024 KB).
