@@ -1,0 +1,43 @@
+To check the SSL certificate of a website using Python, you can use the ssl and socket modules. Here's an example of how you can implement an SSL certificate checker:
+
+python
+Copy code
+import ssl
+import socket
+
+def check_ssl_certificate(hostname, port=443):
+    context = ssl.create_default_context()
+
+    try:
+        with socket.create_connection((hostname, port)) as sock:
+            with context.wrap_socket(sock, server_hostname=hostname) as secure_sock:
+                certificate = secure_sock.getpeercert()
+                expiration_date = certificate['notAfter']
+                issuer = certificate['issuer']
+                subject = certificate['subject']
+                # You can access more certificate information as needed
+
+                print(f"Certificate Information for {hostname}:{port}")
+                print(f"Issuer: {issuer}")
+                print(f"Subject: {subject}")
+                print(f"Expiration Date: {expiration_date}")
+
+    except socket.gaierror:
+        print("Error: Invalid hostname or port.")
+    except ConnectionRefusedError:
+        print("Error: Connection refused.")
+    except ssl.SSLError as e:
+        print("Error: SSL connection failed.", str(e))
+
+# Example usage
+hostname = 'example.com'
+port = 443
+
+check_ssl_certificate(hostname, port)
+In the code above, we create an SSL context using ssl.create_default_context() to establish a secure connection. We then use socket.create_connection() to connect to the specified hostname and port. Next, we wrap the socket connection using context.wrap_socket() to create an SSL/TLS connection.
+
+Once the SSL connection is established, we can retrieve the SSL certificate information using secure_sock.getpeercert(). In the example, we print the issuer, subject, and expiration date of the certificate.
+
+You can replace 'example.com' and 443 with the desired hostname and port you want to check the SSL certificate for.
+
+Please note that this example assumes that the SSL certificate is valid and the connection can be established. You may need to handle additional exceptions or modify the code based on your specific requirements.
