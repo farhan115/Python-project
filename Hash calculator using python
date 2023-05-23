@@ -1,0 +1,32 @@
+A hash function takes input (or 'message') and returns a fixed-size string of bytes. The output (or 'digest') is unique to each unique input. Python's hashlib library contains algorithms for hashing.
+
+Here's a simple hash calculator for text using SHA-256:
+
+python
+Copy code
+import hashlib
+
+def calculate_hash(text):
+    # Create a new sha256 hash object
+    sha = hashlib.sha256()
+
+    # Hash the text, which must be encoded to bytes
+    sha.update(text.encode())
+
+    # Return the hexadecimal digest of the hash
+    return sha.hexdigest()
+
+text = "Hello, world!"
+hash_value = calculate_hash(text)
+print(f"The SHA-256 hash of '{text}' is: {hash_value}")
+This script will print the SHA-256 hash of the string "Hello, world!". You can replace this with any string you want to calculate the hash of.
+
+Please note:
+
+In this example, we're using SHA-256, which is currently considered to be a secure hash function. There are many other hash functions available in hashlib, such as MD5 or SHA-1, but these are not considered secure against well-funded attackers.
+
+Hash functions are deterministic, meaning they will always produce the same hash for the same input.
+
+Hash functions cannot be reversed. Given the hash, there is no (easy) way to find the original input. This is why they are often used for storing passwords: you can verify if a password is correct by comparing hashes, without having to store the original password.
+
+Be careful when handling sensitive data. Although the script itself does not leak information, the surrounding environment (like command history or logs) might.
