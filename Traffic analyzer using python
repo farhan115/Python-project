@@ -1,0 +1,35 @@
+To analyze network traffic in Python, you can use a library like Scapy or PyShark, which are wrappers for Wireshark, a widely-used network protocol analyzer.
+
+The following is an example of how to use PyShark to analyze network traffic:
+
+First, install PyShark:
+
+bash
+Copy code
+pip install pyshark
+Then, use the following code:
+
+python
+Copy code
+import pyshark
+
+def print_packet_info(pkt):
+    print("Packet #{}: {} ==> {}".format(pkt.number, pkt.ip.src, pkt.ip.dst))
+
+# Start capturing packets
+capture = pyshark.LiveCapture(interface='eth0')
+
+for packet in capture.sniff_continuously(packet_count=10):
+    print_packet_info(packet)
+In this script:
+
+pyshark.LiveCapture(interface='eth0') starts capturing packets on the 'eth0' network interface.
+The sniff_continuously(packet_count=10) method will capture 10 packets, then stop.
+For each captured packet, the print_packet_info() function prints the packet number and the source and destination IP addresses.
+Please note:
+
+You must run this script with sufficient permissions to capture network traffic. This usually means you need to run it as root, or with sudo.
+Replace 'eth0' with the name of your network interface.
+The script assumes that all captured packets will be IP packets (with source and destination IP addresses). In reality, you might capture other types of packets, like ARP or DHCP. A real traffic analyzer would need to handle different types of packets.
+Analyzing network traffic can raise privacy and legal concerns. Be sure to only analyze traffic that you have the rights to analyze.
+PyShark and Scapy provide a lot of capabilities beyond just printing the source and destination IP addresses. You can analyze packet contents, filter by protocol, save packets to a file for later analysis, and more. Check out the documentation for more information.
