@@ -1,0 +1,37 @@
+class Dictionary:
+    def __init__(self):
+        self.dictionary = {}
+
+    def add_entry(self, word, definition):
+        if word in self.dictionary:
+            print(f"The word '{word}' already exists in the dictionary.")
+        else:
+            self.dictionary[word] = definition
+            print(f"Entry for '{word}' added to the dictionary.")
+
+    def lookup_word(self, word):
+        if word in self.dictionary:
+            print(f"Definition of '{word}': {self.dictionary[word]}")
+        else:
+            print(f"The word '{word}' is not found in the dictionary.")
+
+    def delete_entry(self, word):
+        if word in self.dictionary:
+            del self.dictionary[word]
+            print(f"Entry for '{word}' deleted from the dictionary.")
+        else:
+            print(f"The word '{word}' is not found in the dictionary.")
+
+    def display_dictionary(self):
+        print("Dictionary entries:")
+        for word, definition in self.dictionary.items():
+            print(f"{word}: {definition}")
+
+# Example usage:
+my_dictionary = Dictionary()
+my_dictionary.add_entry("apple", "A fruit with a red or green skin and a crisp flesh.")
+my_dictionary.add_entry("banana", "A long curved fruit that grows in clusters.")
+my_dictionary.add_entry("apple", "A company that makes electronic devices.")  # Trying to add duplicate entry
+my_dictionary.lookup_word("apple")
+my_dictionary.delete_entry("banana")
+my_dictionary.display_dictionary()
