@@ -1,0 +1,34 @@
+class ParkingGarage:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.spaces_available = capacity
+        self.parked_cars = []
+
+    def park_car(self, car):
+        if self.spaces_available > 0:
+            self.parked_cars.append(car)
+            self.spaces_available -= 1
+            print(f"Car {car} parked successfully.")
+        else:
+            print("Sorry, the parking garage is full.")
+
+    def remove_car(self, car):
+        if car in self.parked_cars:
+            self.parked_cars.remove(car)
+            self.spaces_available += 1
+            print(f"Car {car} removed from the parking garage.")
+        else:
+            print(f"Car {car} is not parked in the garage.")
+
+    def display_parked_cars(self):
+        print("Cars parked in the garage:")
+        for car in self.parked_cars:
+            print(car)
+
+# Example usage:
+parking_lot = ParkingGarage(10)
+parking_lot.park_car("ABC123")
+parking_lot.park_car("DEF456")
+parking_lot.display_parked_cars()
+parking_lot.remove_car("ABC123")
+parking_lot.display_parked_cars()
