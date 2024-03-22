@@ -1,0 +1,51 @@
+class EmployeeRecord:
+    def __init__(self):
+        self.records = {}
+
+    def add_record(self, emp_id, emp_name, emp_salary):
+        if emp_id not in self.records:
+            self.records[emp_id] = {'name': emp_name, 'salary': emp_salary}
+            print(f"Employee {emp_name} added successfully!")
+        else:
+            print(f"Employee with ID {emp_id} already exists.")
+
+    def view_record(self, emp_id):
+        if emp_id in self.records:
+            print(f"Employee ID: {emp_id}")
+            print(f"Name: {self.records[emp_id]['name']}")
+            print(f"Salary: {self.records[emp_id]['salary']}")
+        else:
+            print(f"Employee with ID {emp_id} does not exist.")
+
+    def update_record(self, emp_id, emp_name=None, emp_salary=None):
+        if emp_id in self.records:
+            if emp_name:
+                self.records[emp_id]['name'] = emp_name
+            if emp_salary:
+                self.records[emp_id]['salary'] = emp_salary
+            print(f"Employee ID: {emp_id} updated successfully!")
+        else:
+            print(f"Employee with ID {emp_id} does not exist.")
+
+    def delete_record(self, emp_id):
+        if emp_id in self.records:
+            del self.records[emp_id]
+            print(f"Employee ID: {emp_id} deleted successfully!")
+        else:
+            print(f"Employee with ID {emp_id} does not exist.")
+
+    def display_all_records(self):
+        print("Employee Records:")
+        for emp_id, emp_info in self.records.items():
+            print(f"Employee ID: {emp_id}, Name: {emp_info['name']}, Salary: {emp_info['salary']}")
+
+
+# Example usage:
+if __name__ == "__main__":
+    employee_db = EmployeeRecord()
+    employee_db.add_record(101, 'John Doe', 50000)
+    employee_db.add_record(102, 'Jane Smith', 60000)
+    employee_db.view_record(101)
+    employee_db.update_record(102, emp_salary=65000)
+    employee_db.delete_record(101)
+    employee_db.display_all_records()
